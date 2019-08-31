@@ -12,6 +12,7 @@ namespace SolarSystem
         internal Teleso[] objekty;
         internal static double dt;
         internal static double G;
+        internal Color[] farby_planet;
 
         public Sustava(double g, double t, params Teleso[] telesa)
         {
@@ -23,11 +24,15 @@ namespace SolarSystem
             nastav_pozicie();
             dt = t;
             G = g;
+            farby_planet = new Color[] { Color.Yellow, Color.MediumTurquoise, Color.Crimson, Color.Aquamarine, Color.OrangeRed, Color.Peru, Color.Gold, Color.Turquoise, Color.SlateBlue };
+            nastav_farby(farby_planet);
+
         }
 
         public void nastav_pozicie()
         {
             objekty[0].pozicia = new Vektor(0, 0);
+
             for (int i = 1; i < objekty.Length; i++)
             {
                 objekty[i].pozicia = new Vektor(objekty[i].hl_poloos * (1 + objekty[i].excentricita), 0);
@@ -48,6 +53,8 @@ namespace SolarSystem
             Vektor r = Vektor.odcitaj_vektor(a.pozicia, b.pozicia);
             Vektor r_jednotkovy = Vektor.vydel_skalarom(r, Vektor.velkost_vektora(r));
             double grav_sila_velkost = G * a.hmotnost * b.hmotnost / Math.Pow(Vektor.velkost_vektora(r), 2);
+            //Console.WriteLine("jednotkovy vektor: " + r_jednotkovy.x.ToString() + " "  + r_jednotkovy.y.ToString());
+            //Console.WriteLine("gravitacna sila: " + Vektor.vynasob_skalarom(r_jednotkovy, grav_sila_velkost).x.ToString()+" " + Vektor.vynasob_skalarom(r_jednotkovy, grav_sila_velkost).y.ToString());
             return Vektor.vynasob_skalarom(r_jednotkovy, -grav_sila_velkost);
         }
 
