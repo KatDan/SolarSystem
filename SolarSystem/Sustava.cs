@@ -13,13 +13,17 @@ namespace SolarSystem
         internal static double dt;
         internal static double G;
         internal Color[] farby_planet;
+        internal bool mod;
 
-        public Sustava(double g, double t, params Teleso[] telesa)
+        public Sustava(double g, double t, bool mod, params Teleso[] telesa)
         {
+            this.mod = mod;
             objekty = new Teleso[telesa.Length];
             for (int i = 0; i < telesa.Length; i++)
             {
                 objekty[i] = telesa[i];
+                //telesa[i].kruh.Visible = true;
+                //zviditelni_vsetky_telesa();
             }
             nastav_pozicie();
             dt = t;
@@ -27,6 +31,14 @@ namespace SolarSystem
             farby_planet = new Color[] { Color.Yellow, Color.MediumTurquoise, Color.Crimson, Color.Aquamarine, Color.OrangeRed, Color.Peru, Color.Gold, Color.Turquoise, Color.SlateBlue };
             nastav_farby(farby_planet);
 
+        }
+
+        public void zviditelni_vsetky_telesa()
+        {
+            for (int i = 0; i < objekty.Length; i++)
+            {
+                objekty[i].kruh.Visible = true;
+            }
         }
 
         public void nastav_pozicie()
@@ -39,6 +51,19 @@ namespace SolarSystem
             }
         }
 
+        public void nastav_pociatocny_stav()
+        {
+            objekty[0].pozicia = new Vektor(0, 0);
+
+            for (int i = 1; i < objekty.Length; i++)
+            {
+                objekty[i].pozicia = objekty[i].pociatocna_pozicia;
+                objekty[i].sila = new Vektor(0, 0);
+                objekty[i].hybnost = Vektor.vynasob_skalarom(new Vektor(0, -1), objekty[i].hmotnost * objekty[i].zisti_init_rychlost());
+            }
+            
+        }
+
         public void nastav_farby(Color[] c)
         {
             for (int i = 0; i < objekty.Length; i++)
@@ -47,7 +72,6 @@ namespace SolarSystem
             }
         }
                 
-
         public static Vektor gravitacna_sila(Teleso a, Teleso b)
         {
             Vektor r = Vektor.odcitaj_vektor(a.pozicia, b.pozicia);

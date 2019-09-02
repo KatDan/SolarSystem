@@ -26,14 +26,14 @@ namespace SolarSystem
         internal Pen pen;
         internal int t;
 
-        internal Vektor posun;
+        internal Vektor[] posun;
         
 
         public Vykreslovanie(Sustava sus, Panel pan)
         {
             t = 0;
             stopa = new bool[sus.objekty.Length];
-            posun = new Vektor(0, 0);
+            posun = new Vektor[sus.objekty.Length];
             sustava = sus;
             telesa = new PictureBox[sus.objekty.Length];
             pozicie_pix_zakl = new Vektor[sus.objekty.Length];
@@ -46,7 +46,7 @@ namespace SolarSystem
 
             //polomery_pix = new int[sus.objekty.Length];
             panel = pan;
-            double pom1 = panel.Size.Width - 400;
+            double pom1 = panel.Size.Height - 40;
             double pom2 = sus.objekty[last_index].hl_poloos * 2;
             k = pom1/pom2;
             //Console.WriteLine(k);
@@ -57,16 +57,16 @@ namespace SolarSystem
                 pom_body[i] = new List<Point>();
             }
 
-
             preskaluj(sus);
             pen = new Pen(Brushes.Red);
 
             //potial ok
 
-            helio();
+            if (sustava.mod == true) helio();
+            else geo();
             //pretypuj_polohove_vektory();
 
-            for(int i = 0; i< sus.objekty.Length; i++)
+            for (int i = 0; i< sus.objekty.Length; i++)
             {
                 telesa[i] = sustava.objekty[i].kruh;
                 telesa[i].Location = new Point((int)(pozicie_pix_vykr[i].x - polomery_pix[i]), (int)(pozicie_pix_vykr[i].y - polomery_pix[i]));
@@ -75,24 +75,61 @@ namespace SolarSystem
 
                 //Console.WriteLine("rectangle: " + telesa[i].X + " " + telesa[i].Y + " " + telesa[i].Width + " " + telesa[i].Height);
             }
-            nastav_polomery(6, 1, 2, 4, 5, 10, 8, 7, 6);
+            
         }
 
-        public void nastav_polomery(params int[] polomer)
+        public void nastav_konstantu_a_ostatne_veci_tak_aby_sa_spravne_rozmiestnili_planety()
         {
-            for (int i = 0; i < polomer.Length; i++)
-            {
-                polomery_pix[i] = polomer[i];
-            }
+            //int last_index = 0;
+
             for (int i = 0; i < polomery_pix.Length; i++)
             {
-                telesa[i].Size = new Size(2 * polomery_pix[i], 2 * polomery_pix[i]);
-                
+                if (sustava.objekty[i].viditelnost == true) last_index = i; ;
             }
-            updateni_pozicie();
-            panel.Update();
+            double pom1 = panel.Size.Height - 40;
+            double pom2 = sustava.objekty[last_index].hl_poloos * 2;
+            k = pom1 / pom2;
+
+            if (sustava.mod == true) helio();
+            else geo();
+            preskaluj(sustava);
+
+
+
         }
 
+        public void nastav_polomery()
+        {
+            int[] mierka = new int[] { 45, 7, 9, 10, 7, 40, 30, 20, 20 };
+            List<int> indexy_viditelne_planety = new List<int>();
+
+            for (int i = 0; i < polomery_pix.Length; i++)
+            {
+                polomery_pix[i] = mierka[i];
+                if (sustava.objekty[i].viditelnost == true) indexy_viditelne_planety.Add(i);
+            }
+            if(indexy_viditelne_planety.Count >= 2)
+            {
+                double a = pozicie_pix_vykr[indexy_viditelne_planety[1]].x - pozicie_pix_vykr[indexy_viditelne_planety[0]].x;
+                double b = a * Math.Sqrt(1 - Math.Pow(sustava.objekty[indexy_viditelne_planety[1]].excentricita, 2));
+                double pom = 2 *mierka[indexy_viditelne_planety[0]] + mierka[indexy_viditelne_planety[1]] + 30;
+                double k = b / pom;
+
+                for (int i = 0; i < polomery_pix.Length; i++)
+                {
+                    polomery_pix[i] = (int)(polomery_pix[i] * k);
+                    if (polomery_pix[i] == 0) polomery_pix[i] = 1;
+
+                    Console.WriteLine("polomer : " + polomery_pix[i] * (int)k);
+                    telesa[i].Size = new Size((int)(2 * polomery_pix[i]), (int)(2 * polomery_pix[i]));
+                    telesa[i].BringToFront();
+                }
+                updateni_pozicie();
+                panel.Update();
+            }
+        }
+
+        //prenasobi skutocne hodnoty konstantou
         public void preskaluj(Sustava sus)
         {
             for (int i = 0; i<pozicie_pix_zakl.Length; i++)
@@ -101,8 +138,6 @@ namespace SolarSystem
                 
                 pozicie_pix_zakl[i].x = Math.Round(pozicie_pix_zakl[i].x);
                 pozicie_pix_zakl[i].y = Math.Round(pozicie_pix_zakl[i].y);
-                //Console.WriteLine("preskalovane: " + pozicie_pix_zakl[i].x.ToString() + " " + pozicie_pix_zakl[i].y.ToString());
-                polomery_pix[i] = 15;
             }
         }
 
@@ -115,20 +150,36 @@ namespace SolarSystem
         {
             double p = 1 - sustava.objekty[last_index].excentricita;
             Vektor pom = new Vektor(sustava.objekty[last_index].hl_poloos * p, 0);
-            posun = Vektor.vynasob_skalarom(pom, k);
-            posun.y = panel.Size.Height / 2;
+            for(int i =0; i < sustava.objekty.Length; i++)
+            {
+                posun[i] = Vektor.vynasob_skalarom(pom, k);
+                posun[i].x += 50;
+                posun[i].y = panel.Size.Height / 2;
+            }
+            
 
             pretypuj_polohove_vektory();
         }
 
         public void geo()
         {
-            Vektor pom1 = new Vektor(sustava.objekty[last_index].hl_poloos * (1 - sustava.objekty[last_index].excentricita)+20, 0);
+            /*Vektor pom1 = new Vektor(sustava.objekty[last_index].hl_poloos * (1 - sustava.objekty[last_index].excentricita)+20, 0);
             Vektor helio = Vektor.vynasob_skalarom(pom1, k);
             helio.y = panel.Size.Height / 2;
 
             Vektor pom2 = pozicie_pix_zakl[3];
-            posun = Vektor.scitaj_vektory(helio, pom2);
+            posun = Vektor.scitaj_vektory(helio, pom2);*/
+            Console.WriteLine("geocentricka");
+            double p = 1 - sustava.objekty[last_index].excentricita;
+            Vektor pom = new Vektor(sustava.objekty[last_index].hl_poloos * p, 0);
+            for (int i = 0; i < sustava.objekty.Length; i++)
+            {
+                posun[i] = Vektor.odcitaj_vektor(Vektor.vynasob_skalarom(pom, k),Vektor.vynasob_skalarom(pozicie_pix_zakl[3],k));
+                posun[i].x += 50;
+                posun[i].y = panel.Size.Height / 2;
+            }
+
+
             pretypuj_polohove_vektory();
         }
 
@@ -138,7 +189,7 @@ namespace SolarSystem
             for(int i = 0; i < pozicie_pix_zakl.Length; i++)
             {
                 
-                pozicie_pix_vykr[i] = Vektor.scitaj_vektory(posun, pozicie_pix_zakl[i]);
+                pozicie_pix_vykr[i] = Vektor.scitaj_vektory(posun[i], pozicie_pix_zakl[i]);
                 pom_body[i].Add(new Point((int)pozicie_pix_vykr[i].x,(int)pozicie_pix_vykr[i].y));
                 //Console.WriteLine("nove pozicie: " + pozicie_pix_vykr[i].x.ToString() + " " + pozicie_pix_vykr[i].y.ToString());
             }
@@ -147,7 +198,9 @@ namespace SolarSystem
         public void updateni_pozicie()
         {
             preskaluj(sustava);
-            helio();
+
+            if (sustava.mod == true) helio();
+            else geo();
             t += 1;
             for (int i = 0; i < pozicie_pix_vykr.Length; i++ )
             {
@@ -166,14 +219,13 @@ namespace SolarSystem
                     pom_body[i].RemoveAt(0);
                 }            
 
-
-                g.DrawRectangle(pen, pom);
+                if(sustava.objekty[i].stopa == true)
+                {
+                    g.DrawRectangle(pen, pom);
+                }
+                telesa[i].BringToFront();
                 telesa[i].Parent = panel;
                 panel.Update();
-
-                //Console.WriteLine("pozicia: " + pozicie_pix_vykr[i].x.ToString() + pozicie_pix_vykr[i].y.ToString());
-
-                //pen.Dispose();
             }
             
             
