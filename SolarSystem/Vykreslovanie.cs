@@ -93,9 +93,6 @@ namespace SolarSystem
             if (sustava.mod == true) helio();
             else geo();
             preskaluj(sustava);
-
-
-
         }
 
         public void nastav_polomery()
@@ -163,24 +160,14 @@ namespace SolarSystem
 
         public void geo()
         {
-            /*Vektor pom1 = new Vektor(sustava.objekty[last_index].hl_poloos * (1 - sustava.objekty[last_index].excentricita)+20, 0);
-            Vektor helio = Vektor.vynasob_skalarom(pom1, k);
-            helio.y = panel.Size.Height / 2;
-
-            Vektor pom2 = pozicie_pix_zakl[3];
-            posun = Vektor.scitaj_vektory(helio, pom2);*/
-            Console.WriteLine("geocentricka");
-            double p = 1 - sustava.objekty[last_index].excentricita;
-            Vektor pom = new Vektor(sustava.objekty[last_index].hl_poloos * p, 0);
-            for (int i = 0; i < sustava.objekty.Length; i++)
+            for(int i = 0; i < sustava.objekty.Length; i++)
             {
-                posun[i] = Vektor.odcitaj_vektor(Vektor.vynasob_skalarom(pom, k),Vektor.vynasob_skalarom(pozicie_pix_zakl[3],k));
-                posun[i].x += 50;
-                posun[i].y = panel.Size.Height / 2;
+                posun[i] = new Vektor(panel.Width / 2, panel.Height / 2);
+                pozicie_pix_vykr[i] = Vektor.scitaj_vektory(Vektor.odcitaj_vektor(pozicie_pix_zakl[i], pozicie_pix_zakl[3]),posun[i]);
+                pom_body[i].Add(new Point((int)pozicie_pix_vykr[i].x, (int)pozicie_pix_vykr[i].y));
             }
 
 
-            pretypuj_polohove_vektory();
         }
 
         public void pretypuj_polohove_vektory()

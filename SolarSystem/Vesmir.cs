@@ -176,8 +176,8 @@ namespace SolarSystem
             viditelne_objekty.Add(Uran);
             viditelne_objekty.Add(Neptun);
 
-            mod = true;
-            sustava = new Sustava(G, dt, mod,objekty_k_dispozicii);
+            //mod = true;
+            sustava = new Sustava(G, dt, objekty_k_dispozicii);
 
             //posledne presne pre neptun: dt = 1000000
             dt = 300000;
@@ -263,7 +263,7 @@ namespace SolarSystem
         internal Teleso[] objekty_k_dispozicii;
         internal Label cas;
 
-        internal bool mod;
+        //internal bool mod;
 
         internal static Vykreslovanie kresli;
         internal Timer timer;
@@ -317,17 +317,18 @@ namespace SolarSystem
             if(mode.Text == "Mode: Heliocentric")
             {
                 //kresli.geo();
-                sustava.mod = true;
+                sustava.mod = false;
                 mode.Text = "Mode: Geocentric";
                 //kresli.telesa[1].X -= 500;
                 plocha.Update();
             }
             else
             {
-                sustava.mod = false;
+                sustava.mod = true;
                 //kresli.helio();
                 mode.Text = "Mode: Heliocentric";
             }
+            reset.PerformClick();
         }
 
         
@@ -351,7 +352,7 @@ namespace SolarSystem
         public void tick(object sender, EventArgs e)
         {
             Console.WriteLine("tick");
-            Console.WriteLine(mod.ToString());
+            Console.WriteLine(sustava.mod.ToString());
 
             for (int i = 1; i < sustava.objekty.Length; i++)
             {
@@ -373,7 +374,9 @@ namespace SolarSystem
 
         public void vytvor_slnecnu_sustavu(List<Teleso> objekty)
         {
-            sustava = new Sustava(G,dt,mod,objekty_k_dispozicii);
+            bool pom = sustava.mod;
+            sustava = new Sustava(G,dt,objekty_k_dispozicii);
+            sustava.mod = pom;
             sustava.nastav_pociatocny_stav();
             kresli = new Vykreslovanie(sustava, plocha);
             plocha.Invalidate();

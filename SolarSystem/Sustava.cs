@@ -15,9 +15,9 @@ namespace SolarSystem
         internal Color[] farby_planet;
         internal bool mod;
 
-        public Sustava(double g, double t, bool mod, params Teleso[] telesa)
+        public Sustava(double g, double t, params Teleso[] telesa)
         {
-            this.mod = mod;
+            mod = true;
             objekty = new Teleso[telesa.Length];
             for (int i = 0; i < telesa.Length; i++)
             {
