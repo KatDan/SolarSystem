@@ -17,7 +17,7 @@ namespace SolarSystem
                 BackColor = Color.Black,
             };
             Controls.Add(plocha);
-            //plocha.Visible = false;
+            plocha.Visible = false;
 
             cas = new Label
             {

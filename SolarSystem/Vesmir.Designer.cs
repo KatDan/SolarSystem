@@ -66,25 +66,25 @@
             // 
             // label5
             // 
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label5.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label5.Location = new System.Drawing.Point(1450, 913);
+            this.label5.Location = new System.Drawing.Point(1450, 895);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(421, 59);
+            this.label5.Size = new System.Drawing.Size(430, 73);
             this.label5.TabIndex = 100002;
-            this.label5.Text = "After making changes resetting the simulation is recommended.";
+            this.label5.Text = resources.GetString("label5.Text");
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(18, 257);
+            this.label4.Location = new System.Drawing.Point(18, 246);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(387, 36);
+            this.label4.Size = new System.Drawing.Size(385, 36);
             this.label4.TabIndex = 2;
             this.label4.Text = "    very accurate                                        not very accurate\r\n(slow" +
-    "ers rendering)                                 (fasters rendering)\r\n";
+    "ers rendering)                               (fasters rendering)\r\n";
             // 
             // groupBox3
             // 
@@ -95,9 +95,9 @@
             this.groupBox3.Controls.Add(this.rychlost);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.groupBox3.Location = new System.Drawing.Point(1450, 613);
+            this.groupBox3.Location = new System.Drawing.Point(1450, 603);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(429, 306);
+            this.groupBox3.Size = new System.Drawing.Size(429, 289);
             this.groupBox3.TabIndex = 100001;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Rendering options";
@@ -115,7 +115,7 @@
             // presnost
             // 
             this.presnost.LargeChange = 100000;
-            this.presnost.Location = new System.Drawing.Point(21, 222);
+            this.presnost.Location = new System.Drawing.Point(21, 211);
             this.presnost.Maximum = 5000000;
             this.presnost.Minimum = 5000;
             this.presnost.Name = "presnost";
@@ -131,7 +131,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(26, 178);
+            this.label3.Location = new System.Drawing.Point(26, 175);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(125, 29);
             this.label3.TabIndex = 23;
@@ -171,7 +171,7 @@
             this.groupBox1.Controls.Add(this.checkBox_neptun_stopa);
             this.groupBox1.Controls.Add(this.checkBox_slnko_stopa);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.groupBox1.Location = new System.Drawing.Point(1670, 135);
+            this.groupBox1.Location = new System.Drawing.Point(1670, 125);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(210, 472);
             this.groupBox1.TabIndex = 0;
@@ -440,7 +440,7 @@
             this.groupBox2.Controls.Add(this.checkBox_neptun);
             this.groupBox2.Controls.Add(this.checkBox_sun);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.groupBox2.Location = new System.Drawing.Point(1450, 135);
+            this.groupBox2.Location = new System.Drawing.Point(1450, 125);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(209, 472);
             this.groupBox2.TabIndex = 18;
