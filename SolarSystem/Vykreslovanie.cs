@@ -86,9 +86,19 @@ namespace SolarSystem
             {
                 if (sustava.objekty[i].viditelnost == true) last_index = i; ;
             }
-            double pom1 = panel.Size.Height - 40;
-            double pom2 = sustava.objekty[last_index].hl_poloos * 2;
-            k = pom1 / pom2;
+            if(sustava.mod == true)
+            {
+                double pom1 = panel.Size.Height - 40;
+                double pom2 = sustava.objekty[last_index].hl_poloos * 2;
+                k = pom1 / pom2;
+            }
+            else
+            {
+                double pom1 = panel.Size.Height - 40;
+                double pom2 = (sustava.objekty[last_index].hl_poloos + sustava.objekty[3].hl_poloos) * 2;
+                k = pom1 / pom2;
+            }
+            
 
             if (sustava.mod == true) helio();
             else geo();
