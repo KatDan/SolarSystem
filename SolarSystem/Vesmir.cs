@@ -38,7 +38,7 @@ namespace SolarSystem
                 {
                     Size = new Size(30, 30),
                     Location = new Point(0, 0),
-                    Image = Image.FromFile(@"slnko.png"),
+                    Image = Properties.Resources.slnko1,
                     //BackColor = Color.Black,
                     Parent = plocha,
 
@@ -53,7 +53,7 @@ namespace SolarSystem
                     Location = new Point(0, 0),
                     BackColor = Color.Transparent,
                     Parent = plocha,
-                    Image = Image.FromFile(@"merkur.png"),
+                    Image = Properties.Resources.merkur,
                     SizeMode = PictureBoxSizeMode.StretchImage,
                 };
                 Controls.Add(merkur_pic);
@@ -64,7 +64,7 @@ namespace SolarSystem
                     Size = new Size(30, 30),
                     Location = new Point(0, 0),
                     Parent = plocha,
-                    Image = Image.FromFile(@"venusa.png"),
+                    Image = Properties.Resources.venusa,
                     SizeMode = PictureBoxSizeMode.StretchImage,
                 };
                 Controls.Add(venusa_pic);
@@ -75,7 +75,7 @@ namespace SolarSystem
                     Size = new Size(30, 30),
                     Location = new Point(0, 0),
                     Parent = plocha,
-                    Image = Image.FromFile(@"zem.png"),
+                    Image = Properties.Resources.zem,
                     SizeMode = PictureBoxSizeMode.StretchImage,
                 };
                 Controls.Add(zem_pic);
@@ -86,7 +86,7 @@ namespace SolarSystem
                     Size = new Size(30, 30),
                     Location = new Point(0, 0),
                     Parent = plocha,
-                    Image = Image.FromFile(@"mars.png"),
+                    Image = Properties.Resources.mars,
                     SizeMode = PictureBoxSizeMode.StretchImage,
                 };
                 Controls.Add(mars_pic);
@@ -97,7 +97,7 @@ namespace SolarSystem
                     Size = new Size(30, 30),
                     Location = new Point(0, 0),
                     Parent = plocha,
-                    Image = Image.FromFile(@"jupiter.png"),
+                    Image = Properties.Resources.jupiter,
                     SizeMode = PictureBoxSizeMode.StretchImage,
                 };
                 Controls.Add(jupiter_pic);
@@ -109,7 +109,7 @@ namespace SolarSystem
                     Location = new Point(0, 0),
                     BackColor = Color.Transparent,
                     Parent = plocha,
-                    Image = Image.FromFile(@"saturn.png"),
+                    Image = Properties.Resources.saturn,
                     SizeMode = PictureBoxSizeMode.StretchImage,
                 };
                 Controls.Add(saturn_pic);
@@ -121,7 +121,7 @@ namespace SolarSystem
                     Location = new Point(0, 0),
                     BackColor = Color.Transparent,
                     Parent = plocha,
-                    Image = Image.FromFile(@"uran.png"),
+                    Image = Properties.Resources.uran,
                     SizeMode = PictureBoxSizeMode.StretchImage,
                 };
                 Controls.Add(uran_pic);
@@ -133,7 +133,7 @@ namespace SolarSystem
                     Location = new Point(0, 0),
                     BackColor = Color.Transparent,
                     Parent = plocha,
-                    Image = Image.FromFile(@"neptun.png"),
+                    Image = Properties.Resources.neptun,
                     SizeMode = PictureBoxSizeMode.StretchImage,
                 };
                 Controls.Add(neptun_pic);
@@ -145,22 +145,20 @@ namespace SolarSystem
 
             //nacitanie vstupu
             {
-                System.IO.StreamReader data = new System.IO.StreamReader(@"planety.txt");
-                data.ReadLine();
+                var data = Properties.Resources.planety.Split(Convert.ToChar("\n"));
 
                 //nazov, m, e, a, r
 
-                Slnko = new Teleso(data.ReadLine().Split(), slnko_pic);
-                Merkur = new Teleso(data.ReadLine().Split(), merkur_pic);
-                Venusa = new Teleso(data.ReadLine().Split(), venusa_pic);
-                Zem = new Teleso(data.ReadLine().Split(), zem_pic);
-                Mars = new Teleso(data.ReadLine().Split(), mars_pic);
-                Jupiter = new Teleso(data.ReadLine().Split(), jupiter_pic);
-                Saturn = new Teleso(data.ReadLine().Split(), saturn_pic);
-                Uran = new Teleso(data.ReadLine().Split(), uran_pic);
-                Neptun = new Teleso(data.ReadLine().Split(), neptun_pic);
+                Slnko = new Teleso(data[1].Split(), slnko_pic);
+                Merkur = new Teleso(data[2].Split(), merkur_pic);
+                Venusa = new Teleso(data[3].Split(), venusa_pic);
+                Zem = new Teleso(data[4].Split(), zem_pic);
+                Mars = new Teleso(data[5].Split(), mars_pic);
+                Jupiter = new Teleso(data[6].Split(), jupiter_pic);
+                Saturn = new Teleso(data[7].Split(), saturn_pic);
+                Uran = new Teleso(data[8].Split(), uran_pic);
+                Neptun = new Teleso(data[9].Split(), neptun_pic);
 
-                data.Close();
             }
             
             objekty_k_dispozicii = new Teleso[] { Slnko, Merkur, Venusa, Zem, Mars, Jupiter, Saturn, Uran, Neptun};

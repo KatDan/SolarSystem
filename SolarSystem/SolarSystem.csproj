@@ -66,6 +66,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="vesmir.resx">
       <DependentUpon>Vesmir.cs</DependentUpon>
@@ -82,6 +83,39 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\planety.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="planety.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jupiter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mars.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="merkur.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="neptun.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="saturn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="slnko1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="uran.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="venusa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="zem.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
