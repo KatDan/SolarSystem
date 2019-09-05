@@ -185,9 +185,9 @@ namespace SolarSystem
 
             zapnut = new Button
             {
-                Location = new Point(600, 500),
-                Size = new Size(200, 50),
-                Text = "Start",
+                Location = new Point(500, 500),
+                Size = new Size(400, 50),
+                Text = "Start the simulation",
                 Parent = plocha
             };
             Controls.Add(zapnut);
