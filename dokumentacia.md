@@ -9,7 +9,7 @@ Program má za úlohu simulovať pohyb planét Slnečnej sústavy a vykresľova�
 
 
 ## Používateľské rozhranie
-Používateľ má možnosť meniť chod simulácie pomocou:
+Používateľ má možnosť meniť chod simulácie takto:
 
  - tlačidlo **"Start the simulation"** - na začiatku vykreslí počiatočnú pozíciu sústavy. 
  Predvolene sú viditeľné všetky objekty SLnečnej sústavy, preto sú aj veľmi malé.
@@ -25,6 +25,13 @@ Používateľ má možnosť meniť chod simulácie pomocou:
 
 Prajeme príjemnú zábavu!
 
+## Programátorská dokumentácia
+Program je napísaný v jazyku C# a používa Windows Forms. Práca programu je rozdelená do tried:
+ - Každý objekt je uložený v triede **Teleso**, obsahuje informácie o svojej veľkosti, excentricite dráhy, hlavnej poloosi trajektórie, hmotnosti (pri vykresľovaní nás ešte zaujíma jeho viditeľnosť a viditeľnosť stopy). Jediná dôležitá metóda tejto triedy je metóda _zisti_init_hybnosť()_, ktorá podľa vzdialenosti od Slnka vypočíta vektor hybnosti planéty na začiatku simulácie.
+ 
+ - Trieda **Sustava** je trieda starajúca sa o array objektov **Teleso**, má na starosti aj fyzikálnú stránku simulácie. Tú nám zabezpčujú metódy _update_sila(), update_hybnost()_ a _update_pozicia()_. Tieto metódy operujú so zvolenou hodnotou dt a Newtonovým gravitačným zákonom.
+
+ - trieda **Vykreslovanie** má na starosti celú vizuálnu stránku simulácie. Preškáluje skutočné pozície objektov (pomocou funkcie _preskaluj()_) tak, aby boli všetky viditeľné na našej vesmírnej ploche. Pri každom preškálovaní obsahuje aktualizované "pixelové vzdialenosti" objektov od Slnka (v poli pozicie_pix_zakl). V závislosti od režimu je vytvorený vektor posun, ktorý na začiatku posunie všetky objekty tak, aby bola celá ich trajektória viditeľná na ploche. Po určení režimu sústavy heliocentrický/geocentrický (prepínanie metódami _helio()_ a _geo()_) prepočíta pozície objektov vzhľadom k Zemi alebo vzhľadom k Slnku. Po uložení správnych vykresľovacích pozícií objektov do poľa pozicie_pix_vykr následne funkcia vykreslí bodku trajektórie a posunie planétu na novú pozíciu pomocou metódy _updateni_pozicie()_. Bodky sú tvorené pomocou System.Drawing, samotné objekty sú obrázky v PictureBox-och. 
 
 
 *Dáta použité na chod Slnečnej sústavy sú čerpané z textového súboru "planety.txt", používateľ si v prípade záujmu môže vstupné údaje upraviť na fiktívne.
