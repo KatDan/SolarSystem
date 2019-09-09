@@ -107,7 +107,7 @@ namespace SolarSystem
 
         public void nastav_polomery()
         {
-            int[] mierka = new int[] { 45, 7, 9, 10, 7, 40, 30, 20, 20 };
+            int[] mierka = new int[] { 45, 7, 9, 10, 7, 9, 40, 30, 20, 20 };
             List<int> indexy_viditelne_planety = new List<int>();
 
             for (int i = 0; i < polomery_pix.Length; i++)

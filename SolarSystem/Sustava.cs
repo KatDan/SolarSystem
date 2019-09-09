@@ -28,7 +28,7 @@ namespace SolarSystem
             nastav_pozicie();
             dt = t;
             G = g;
-            farby_planet = new Color[] { Color.Yellow, Color.MediumTurquoise, Color.Crimson, Color.Aquamarine, Color.OrangeRed, Color.Peru, Color.Gold, Color.Turquoise, Color.SlateBlue };
+            farby_planet = new Color[] { Color.Yellow, Color.MediumTurquoise, Color.Crimson, Color.Aquamarine, Color.OrangeRed, Color.Aquamarine, Color.Peru, Color.Gold, Color.Turquoise, Color.SlateBlue };
             nastav_farby(farby_planet);
 
         }
