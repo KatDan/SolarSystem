@@ -158,11 +158,10 @@ namespace SolarSystem
                 Saturn = new Teleso(data[7].Split(), saturn_pic);
                 Uran = new Teleso(data[8].Split(), uran_pic);
                 Neptun = new Teleso(data[9].Split(), neptun_pic);
-                Ceres = new Teleso(data[10].Split(),merkur_pic);
 
             }
             
-            objekty_k_dispozicii = new Teleso[] { Slnko, Merkur, Venusa, Zem, Mars, Ceres, Jupiter, Saturn, Uran, Neptun};
+            objekty_k_dispozicii = new Teleso[] { Slnko, Merkur, Venusa, Zem, Mars, Jupiter, Saturn, Uran, Neptun};
             viditelne_objekty = new List<Teleso>();
 
             viditelne_objekty.Add(Slnko);
@@ -279,7 +278,6 @@ namespace SolarSystem
         internal Teleso Saturn;
         internal Teleso Uran;
         internal Teleso Neptun;
-        internal Teleso Ceres;
 
         internal static Panel plocha;
 
